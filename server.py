@@ -9,14 +9,14 @@ api = Flask(__name__)
 app = App()
 
 
-@api.route("/lights", methods=["GET"])
+@api.route("/static/lights", methods=["GET"])
 def get_lights():
     lights = app.get_lights()
     lights_dict = [l.__dict__ for l in lights]
     return jsonify(lights_dict)
 
 
-@api.route("/lights", methods=["POST"])
+@api.route("/static/lights", methods=["POST"])
 def set_light():
     data = json.loads(request.data)
     id: int = data["id"]
@@ -26,7 +26,7 @@ def set_light():
     return jsonify(light.__dict__)
 
 
-@api.route("/sequences", methods=["GET"])
+@api.route("/static/sequences", methods=["GET"])
 def get_sequences():
     seqs = app.get_sequences()
     # seqs_dict = [l.__dict__ for l in seq]
@@ -34,7 +34,7 @@ def get_sequences():
     return jsonify(seqs_dict)
 
 
-@api.route("/sequences", methods=["POST"])
+@api.route("/static/sequences", methods=["POST"])
 def start_seq():
     data = json.loads(request.data)
     name: int = data["name"]

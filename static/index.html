@@ -43,24 +43,24 @@
     methods: {
       async on(light) {
         console.log("On")
-        axios.post(`${this.url}/lights`, { id: light.id, state: true })
+        axios.post(`lights`, { id: light.id, state: true })
       },
       async off(light) {
         console.log("Off")
-        axios.post(`${this.url}/lights`, { id: light.id, state: false })
+        axios.post(`lights`, { id: light.id, state: false })
       },
       async start(seq) {
         console.log("Start")
-        axios.post(`${this.url}/sequences`, { name: seq.name })
+        axios.post(`sequences`, { name: seq.name })
       }
     },
     async mounted() {
       console.log("Start")
 
-      const light_response = await axios.get(`${this.url}/lights`)
+      const light_response = await axios.get(`lights`)
       this.lights = light_response.data
 
-      const seq_res = await axios.get(`${this.url}/sequences`)
+      const seq_res = await axios.get(`sequences`)
       this.sequences = seq_res.data
       console.log("End")
     }
