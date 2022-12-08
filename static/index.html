@@ -1,0 +1,68 @@
+<script type="importmap">
+  {
+    "imports": {
+      "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js",
+      "axios": "https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
+    }
+  }
+</script>
+
+<div id="app">
+  <h1>30 Merton Crescent Christmas Lights!</h1>
+  <h2>Lights</h2>
+  <ul>
+    <li v-for="light in lights" :key="light.id">
+      <button @click="on(light)">On</button>
+      <button @click="off(light)">Off</button>
+      {{ light.name }}
+    </li>
+  </ul>
+
+  <h2>Sequences</h2>
+  <ul>
+    <li v-for="sequence in sequences">
+      <button @click="start(sequence)">Start</button>
+      {{ sequence.name }}
+    </li>
+  </ul>
+</div>
+
+<script type="module">
+  import { createApp } from 'vue'
+  import 'axios'
+
+  createApp({
+    data() {
+      return {
+        message: 'Hello Vue!',
+        url: "http://127.0.0.1:5000",
+        lights: null,
+        sequences: null
+      }
+    },
+    methods: {
+      async on(light) {
+        console.log("On")
+        axios.post(`${this.url}/lights`, { id: light.id, state: true })
+      },
+      async off(light) {
+        console.log("Off")
+        axios.post(`${this.url}/lights`, { id: light.id, state: false })
+      },
+      async start(seq) {
+        console.log("Start")
+        axios.post(`${this.url}/sequences`, { name: seq.name })
+      }
+    },
+    async mounted() {
+      console.log("Start")
+
+      const light_response = await axios.get(`${this.url}/lights`)
+      this.lights = light_response.data
+
+      const seq_res = await axios.get(`${this.url}/sequences`)
+      this.sequences = seq_res.data
+      console.log("End")
+    }
+  }).mount('#app')
+</script>
