@@ -13,14 +13,14 @@ class Light:
 # Pin map
 def load_lights() -> list[Light]:
     lights: list[Light] = {
-        Light("Candy Canes", 1, 1, "cc"),
-        Light("Christmas Trees", 2, 2, "ct"),
-        Light("Waving Santa", 3, 3, "ws"),
-        Light("Snowman", 4, 4, "sm"),
-        Light("Motorbike Santa", 5, 5, "ms"),
-        Light("Ho ho ho santa", 6, 6, "hh"),
-        # Light("", 7),
-        # Light("", 8),
+        Light("Candy Canes", 1, 7, "cc"),
+        Light("Christmas Trees", 2, 11, "ct"),
+        Light("Waving Santa", 3, 12, "ws"),
+        Light("Snowman", 4, 13, "sm"),
+        Light("Motorbike Santa", 5, 15, "ms"),
+        Light("Ho ho ho santa", 6, 16, "hh"),
+        Light("Emtpy_7", 7, 18, "em7"),
+        Light("Empty_8", 8, 22, "em8"),
     }
 
     return lights
@@ -29,6 +29,7 @@ def load_lights() -> list[Light]:
 def setup_pins(lights: list[Light]):
     for light in lights:
         GPIO.setup(light.pin, GPIO.OUT)
+        on(light)
 
 
 def on(light: Light):
