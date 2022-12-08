@@ -4,7 +4,7 @@ from multiprocessing import Process
 
 from pathlib import Path
 
-from lights import Light, load_lights, on, off
+from lights import Light, load_lights, on, off, setup_pins, setup_gpio
 from sequences import Sequence, load_sequences
 
 
@@ -13,6 +13,8 @@ class App:
         # Problem is, I want to be playing a sequence.
         # How to kill it at any point?
         # Create an app, pass it to the
+        setup_gpio()
+        setup_pins()
         self.lights = load_lights()
         self.sequences = load_sequences(self.lights)
 

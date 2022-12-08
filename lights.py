@@ -51,5 +51,9 @@ def set_light(light: Light, state: bool):
     light.state = state
 
 
+def setup_gpio():
+    GPIO.setmode(GPIO.BOARD)
+
+
 def clean_gpio():
     GPIO.cleanup()
