@@ -14,8 +14,8 @@ class App:
         # How to kill it at any point?
         # Create an app, pass it to the
         setup_gpio()
-        setup_pins()
         self.lights = load_lights()
+        setup_pins(self.lights)
         self.sequences = load_sequences(self.lights)
 
         self.current_sequence_process: Process = None
