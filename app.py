@@ -6,6 +6,7 @@ from pathlib import Path
 
 from lights import Light, load_lights, on, off, setup_pins, setup_gpio
 from sequences import Sequence, load_sequences
+from games import inorout
 
 
 class App:
@@ -41,12 +42,28 @@ class App:
             off(light)
 
         return light
+    
+    def game_inorout(self) -> Sequence:
+        # Only certain lights are used
+        print("Start game In Or Out")
+        codes = ["cc", "ws", "hh", "li", "sm"]
+        lights_in_play = [l for l in self.lights if l.seq_code in codes]
+        print(f"Got {len(lights_in_play)} lights in play")
+        
+        game_seq = inorout(lights_in_play, 50)
+        
+        print("Sequence made, starting game...")
+        return self.start_seq_direct(game_seq)
 
     def start_seq(self, name: str) -> Sequence:
-        self.stop_current_seq()
-
         matching_seq = [l for l in self.sequences if l.name == name]
         seq = matching_seq[0]
+        
+        return self.start_seq_direct(seq)
+        
+        
+    def start_seq_direct(self, seq: Sequence) -> Sequence:
+        self.stop_current_seq()
 
         arg = [seq]
 
@@ -54,7 +71,7 @@ class App:
         self.current_sequence_process = proc
         proc.start()
 
-        print("Started sequence")
+        print(f"Started sequence {seq.name}")
         return seq
 
     def run_sequence(self, seq: Sequence):

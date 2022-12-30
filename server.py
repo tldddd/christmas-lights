@@ -43,6 +43,13 @@ def start_seq():
     return jsonify(seqs_dict)
 
 
+@api.route("/static/inorout", methods=["POST"])
+def start_inorout():
+    seq = app.game_inorout()
+    seqs_dict = get_json(seq)
+    return jsonify(seqs_dict)
+
+
 def get_json(obj):
     return json.loads(
         json.dumps(obj, default=lambda o: getattr(o, "__dict__", str(o)))

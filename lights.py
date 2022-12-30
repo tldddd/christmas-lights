@@ -14,13 +14,13 @@ class Light:
 def load_lights() -> list[Light]:
     lights: list[Light] = {
         Light("Candy Canes", 1, 7, "cc"),
-        Light("Christmas Trees", 2, 11, "ct"),
-        Light("Waving Santa", 3, 12, "ws"),
-        Light("Snowman", 4, 13, "sm"),
-        Light("Motorbike Santa", 5, 15, "ms"),
-        Light("Ho ho ho santa", 6, 16, "hh"),
-        Light("Emtpy_7", 7, 18, "em7"),
-        Light("Empty_8", 8, 22, "em8"),
+        Light("Motorbike Santa", 2, 11, "ms"),
+        Light("Waving Santa saying (ho ho ho!!!!!!!)", 3, 12, "ws"),
+        Light("Ho Ho Ho train", 4, 13, "hh"),
+        Light("Dangling Lights", 5, 15, "li"),
+        Light("FAT ( MADE BY IZZY) santa", 6, 16, "fs"),
+        Light("Snowman", 7, 18, "sm"),
+        Light(" Big fat OLLY gingerbread man", 8, 22, "gm"),
     }
 
     return lights
@@ -43,9 +43,9 @@ def off(light: Light):
 
 
 def set_light(light: Light, state: bool):
-    gpio_value = GPIO.HIGH
+    gpio_value = GPIO.LOW
     if state == True:
-        gpio_value = GPIO.LOW
+        gpio_value = GPIO.HIGH
 
     GPIO.output(light.pin, gpio_value)
     light.state = state

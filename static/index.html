@@ -25,11 +25,15 @@
       {{ sequence.name }}
     </li>
   </ul>
+  
+  <h2>Games</h2>
+  <button @click="start_inorout()">Start</button>
+  In or out
 </div>
 
 <script type="module">
-  import { createApp } from 'vue'
-  import 'axios'
+  import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+  import "https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
 
   createApp({
     data() {
@@ -52,6 +56,9 @@
       async start(seq) {
         console.log("Start")
         axios.post(`sequences`, { name: seq.name })
+      },
+      async start_inorout() {
+          axios.post(`inorout`)
       }
     },
     async mounted() {
